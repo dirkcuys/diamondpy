@@ -6,6 +6,7 @@ def calc_diamond( grid, row, col, size, k):
     scale = k*2*size/len(grid[0])
     grid[row][col] = (grid[row-size][col-size]+grid[row-size][col+size]+grid[row+size][col-size]+grid[row+size][col+size])/4.0 + scale*random.uniform(-1.0, 1.0)
 
+
 def calc_square( grid, row, col, size, k):
     cap = len(grid[0])
     scale = k*2*size/len(grid[0])
@@ -29,6 +30,7 @@ def calc_square( grid, row, col, size, k):
 def diamond( n , k ):
     grid = [ [0 for i in range(2**n+1)] for j in range(2**n+1)]
 
+    # initialize grid
     grid[0][0] = random.uniform(0.0, 1.0)
     grid[0][-1] = random.uniform(0.0, 1.0)
     grid[-1][0] = random.uniform(0.0, 1.0)
@@ -50,6 +52,7 @@ def diamond( n , k ):
 
         size /= 2
 
+    # save image
     image = Image.new('RGB', (2**n+1, 2**n+1) )
     draw = ImageDraw.Draw(image)
     for y in range(2**n+1):
