@@ -12,13 +12,13 @@ def ds (grid, tr, tc, br, bc, k):
     scale = k*size/len(grid[0])
 
     grid[tr+size/2][tc+size/2] = \
-        (grid[tr][tc]+grid[tr][bc]+grid[bc][tr]+grid[bc][br])/4.0# \
-        #+ scale*random.uniform(0.0, 1.0)
+        (grid[tr][tc]+grid[tr][bc]+grid[br][tc]+grid[br][bc])/4.0 \
+        + scale*random.uniform(-1.0, 1.0)
 
-    grid[tr][tc+size/2] = (grid[tr][tc]+grid[tr][bc])/2.0# + scale*random.uniform(0.0, 1.0)
-    grid[br][tc+size/2] = (grid[br][tc]+grid[br][bc])/2.0# + scale*random.uniform(0.0, 1.0)
-    grid[tr+size/2][tc] = (grid[tr][tc]+grid[br][tc])/2.0# + scale*random.uniform(0.0, 1.0)
-    grid[tr+size/2][bc] = (grid[tr][bc]+grid[br][bc])/2.0# + scale*random.uniform(0.0, 1.0)
+    grid[tr][tc+size/2] = (grid[tr][tc]+grid[tr][bc])/2.0 + scale*random.uniform(-1.0, 1.0)
+    grid[br][tc+size/2] = (grid[br][tc]+grid[br][bc])/2.0 + scale*random.uniform(-1.0, 1.0)
+    grid[tr+size/2][tc] = (grid[tr][tc]+grid[br][tc])/2.0 + scale*random.uniform(-1.0, 1.0)
+    grid[tr+size/2][bc] = (grid[tr][bc]+grid[br][bc])/2.0 + scale*random.uniform(-1.0, 1.0)
 
     ds(grid, tr, tc, tr+size/2, tc+size/2, k)
     ds(grid, tr, tc+size/2, tr+size/2, bc, k)
@@ -27,14 +27,14 @@ def ds (grid, tr, tc, br, bc, k):
 
 
 def diamond( n ):
-    grid = [ [0.5 for i in range(2**n+1)] for j in range(2**n+1)]
+    grid = [ [0 for i in range(2**n+1)] for j in range(2**n+1)]
 
     grid[0][0] = random.uniform(0.0, 1.0)
     grid[0][-1] = random.uniform(0.0, 1.0)
     grid[-1][0] = random.uniform(0.0, 1.0)
     grid[-1][-1] = random.uniform(0.0, 1.0)
 
-    ds(grid, 0, 0, 2**n, 2**n, 0.1)
+    ds(grid, 0, 0, 2**n, 2**n, 0.5)
 
     image = Image.new('RGB', (2**n+1, 2**n+1) )
     draw = ImageDraw.Draw(image)
@@ -45,4 +45,4 @@ def diamond( n ):
 
     image.save('heightmap2.png')
 
-diamond(8)
+diamond(10)
